@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import yaml from "js-yaml";
 import type { Project } from "@/types";
 
 const projectsDirectory = path.join(process.cwd(), "content/projects");
@@ -18,7 +19,11 @@ export function getAllProjects(): Project[] {
       const slug = fileName.replace(/\.md$/, "");
       const fullPath = path.join(projectsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data, content } = matter(fileContents);
+      const { data, content } = matter(fileContents, {
+        engines: {
+          yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as Record<string, unknown>
+        }
+      });
 
       return {
         slug,
@@ -47,7 +52,11 @@ export function getProjectBySlug(slug: string): Project | null {
     }
 
     const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+    const { data, content } = matter(fileContents, {
+      engines: {
+        yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as Record<string, unknown>
+      }
+    });
 
     // Validate required fields
     if (!data.title || !content) {

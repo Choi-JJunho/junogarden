@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import yaml from "js-yaml";
 import type { BlogPost } from "@/types";
 
 const blogDirectory = path.join(process.cwd(), "content/blog");
@@ -26,7 +27,11 @@ export function getAllPosts(): BlogPost[] {
         const slug = createSlug(fileName);
         const fullPath = path.join(blogDirectory, fileName);
         const fileContents = fs.readFileSync(fullPath, "utf8");
-        const { data, content } = matter(fileContents);
+        const { data, content } = matter(fileContents, {
+          engines: {
+            yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as Record<string, unknown>
+          }
+        });
 
         return {
           slug,
@@ -37,8 +42,11 @@ export function getAllPosts(): BlogPost[] {
           content,
           tags: data.tags || [],
         };
-      } catch (error) {
-        console.error(`Error parsing ${fileName}:`, error);
+      } catch {
+        // Skip files with parsing errors (e.g., invalid YAML in frontmatter)
+        if (process.env.NODE_ENV === 'development') {
+          console.warn(`⚠️  Skipping file with parsing error: ${fileName}`);
+        }
         return null;
       }
     })
@@ -61,7 +69,11 @@ export function getPostBySlug(slug: string): BlogPost | null {
     }
 
     const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+    const { data, content } = matter(fileContents, {
+      engines: {
+        yaml: (s) => yaml.load(s, { schema: yaml.JSON_SCHEMA }) as Record<string, unknown>
+      }
+    });
 
     // Validate required fields
     if (!data.title || !content) {
