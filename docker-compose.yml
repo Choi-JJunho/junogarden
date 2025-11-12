@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  junogarden-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: junogarden-web
+    ports:
+      - "18888:18888"
+    environment:
+      - NODE_ENV=production
+      - PORT=18888
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:18888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
