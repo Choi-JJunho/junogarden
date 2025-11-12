@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   junogarden-web:
+    image: junho5336/homepage:latest
     build:
       context: .
       dockerfile: Dockerfile

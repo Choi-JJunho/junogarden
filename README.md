@@ -32,7 +32,7 @@
 # 의존성 설치
 npm install
 
-# 개발 서버 시작 (http://localhost:3000)
+# 개발 서버 시작 (http://localhost:18888)
 npm run dev
 ```
 
@@ -42,9 +42,28 @@ npm run dev
 # 빌드
 npm run build
 
-# 프로덕션 서버 실행
+# 프로덕션 서버 실행 (포트 18888)
 npm start
 ```
+
+### Docker 배포
+
+```bash
+# Docker Compose로 실행
+docker-compose up -d
+
+# Docker Hub에 멀티 플랫폼 이미지 푸시
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t junho5336/homepage:latest \
+  --push \
+  .
+
+# 또는 Makefile 사용
+make build-push
+```
+
+자세한 배포 가이드는 [DEPLOY.md](./DEPLOY.md)를 참고하세요.
 
 ### 코드 품질
 
