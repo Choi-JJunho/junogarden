@@ -21,9 +21,28 @@ export default function Home() {
             <h2 className="text-4xl md:text-6xl font-bold mb-6 text-primary animate-float">
               실험 공간
             </h2>
-            <p className="text-lg md:text-xl text-foreground/80 mb-12 leading-relaxed">
+            <p className="text-lg md:text-xl text-foreground/80 mb-8 leading-relaxed">
               개인 프로젝트와 생각을 기록하는 곳
             </p>
+
+            {/* About Me Section */}
+            <div className="mb-12 p-6 bg-primary/5 border border-primary/20 rounded-xl">
+              <h3 className="text-2xl font-bold mb-4 text-secondary flex items-center gap-2">
+                <span>👋</span> About Me
+              </h3>
+              <div className="text-foreground/90 leading-relaxed space-y-3">
+                <p>
+                  안녕하세요! 개발과 문제 해결을 즐기는 개발자입니다.
+                </p>
+                <p>
+                  새로운 기술을 배우고 실험하는 것을 좋아하며,
+                  이 공간에서 프로젝트와 학습 내용을 기록하고 있습니다.
+                </p>
+                <p className="text-accent font-medium">
+                  ✨ 관심 분야: Web Development, System Design, Problem Solving
+                </p>
+              </div>
+            </div>
 
             {/* Navigation Cards */}
             <div className="grid md:grid-cols-2 gap-6">
