@@ -82,7 +82,7 @@ export default function InteractiveBackground() {
         // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = primaryColor || "#4a7c2c";
+        ctx.fillStyle = primaryColor || "#4fc3f7";
         ctx.fill();
 
         // Draw connections
@@ -95,7 +95,7 @@ export default function InteractiveBackground() {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `${primaryColor || "#4a7c2c"}${Math.floor(
+            ctx.strokeStyle = `${primaryColor || "#4fc3f7"}${Math.floor(
               (1 - distance / connectionDistance) * 0.3 * 255
             )
               .toString(16)

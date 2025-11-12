@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f5f0;
-  --foreground: #1a1a1a;
-  --primary: #4a7c2c;
-  --secondary: #6b9b3c;
-  --accent: #8bc34a;
+  --background: #0a0e27;
+  --foreground: #e8f4f8;
+  --primary: #4fc3f7;
+  --secondary: #b794f6;
+  --accent: #ffd93d;
+  --star-glow: #00d4ff;
+  --nebula-purple: #7c3aed;
+  --nebula-pink: #f472b6;
 }
 
 @theme inline {
@@ -18,13 +21,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #1a1a16;
-    --foreground: #e8f5e9;
-    --primary: #6b9b3c;
-    --secondary: #8bc34a;
-    --accent: #aed581;
+    --background: #0f1629;
+    --foreground: #e8f4f8;
+    --primary: #4fc3f7;
+    --secondary: #b794f6;
+    --accent: #ffd93d;
   }
 }
 
@@ -33,10 +36,40 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   background-image:
-    radial-gradient(circle at 20% 50%, rgba(74, 124, 44, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(107, 155, 60, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 20%, rgba(139, 195, 74, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(79, 195, 247, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(244, 114, 182, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 60% 70%, rgba(255, 217, 61, 0.08) 0%, transparent 40%);
   background-attachment: fixed;
+}
+
+/* Add starfield effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 80% 10%, white, transparent),
+    radial-gradient(2px 2px at 90% 60%, white, transparent),
+    radial-gradient(1px 1px at 33% 85%, white, transparent),
+    radial-gradient(1px 1px at 75% 45%, white, transparent);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  opacity: 0.3;
+  pointer-events: none;
+  animation: twinkle 8s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
 }
 
 @keyframes float {
@@ -45,8 +78,8 @@ body {
 }
 
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(74, 124, 44, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(107, 155, 60, 0.5); }
+  0%, 100% { box-shadow: 0 0 20px rgba(79, 195, 247, 0.4), 0 0 40px rgba(124, 58, 237, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(79, 195, 247, 0.6), 0 0 60px rgba(124, 58, 237, 0.3); }
 }
 
 @keyframes fadeInUp {
@@ -78,6 +111,17 @@ body {
   }
 }
 
+@keyframes starPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -90,11 +134,15 @@ body {
   animation: shimmer 2s infinite;
   background: linear-gradient(
     to right,
-    rgba(74, 124, 44, 0.1) 0%,
-    rgba(107, 155, 60, 0.2) 50%,
-    rgba(74, 124, 44, 0.1) 100%
+    rgba(79, 195, 247, 0.1) 0%,
+    rgba(124, 58, 237, 0.2) 50%,
+    rgba(79, 195, 247, 0.1) 100%
   );
   background-size: 1000px 100%;
+}
+
+.star-pulse {
+  animation: starPulse 2s ease-in-out infinite;
 }
 
 /* Screen reader only utility */
@@ -152,7 +200,7 @@ body {
   --tw-prose-links: var(--secondary);
   --tw-prose-bold: var(--primary);
   --tw-prose-code: var(--accent);
-  --tw-prose-pre-bg: rgba(74, 124, 44, 0.05);
+  --tw-prose-pre-bg: rgba(79, 195, 247, 0.08);
   --tw-prose-quotes: var(--secondary);
 }
 
@@ -202,7 +250,7 @@ body {
 
 .prose code {
   color: var(--accent);
-  background-color: rgba(74, 124, 44, 0.1);
+  background-color: rgba(79, 195, 247, 0.1);
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.875em;
@@ -210,13 +258,14 @@ body {
 }
 
 .prose pre {
-  background-color: rgba(74, 124, 44, 0.05);
-  border: 2px solid rgba(74, 124, 44, 0.2);
+  background-color: rgba(15, 22, 41, 0.6);
+  border: 2px solid rgba(79, 195, 247, 0.3);
   border-radius: 0.5rem;
   padding: 1.25em;
   overflow-x: auto;
   margin-top: 1.75em;
   margin-bottom: 1.75em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 0 20px rgba(79, 195, 247, 0.1);
 }
 
 .prose pre code {
@@ -252,7 +301,7 @@ body {
   margin-bottom: 2em;
   max-width: 100%;
   height: auto;
-  border: 2px solid rgba(74, 124, 44, 0.2);
+  border: 2px solid rgba(79, 195, 247, 0.2);
 }
 
 .prose table {
@@ -263,8 +312,8 @@ body {
 }
 
 .prose th {
-  background-color: rgba(74, 124, 44, 0.1);
-  border: 1px solid rgba(74, 124, 44, 0.2);
+  background-color: rgba(79, 195, 247, 0.1);
+  border: 1px solid rgba(79, 195, 247, 0.3);
   padding: 0.75em;
   text-align: left;
   font-weight: 600;
@@ -272,12 +321,16 @@ body {
 }
 
 .prose td {
-  border: 1px solid rgba(74, 124, 44, 0.2);
+  border: 1px solid rgba(79, 195, 247, 0.2);
   padding: 0.75em;
 }
 
 .prose hr {
   border: none;
-  border-top: 2px solid rgba(74, 124, 44, 0.2);
+  border-top: 2px solid rgba(79, 195, 247, 0.2);
   margin: 3em 0;
+}
+
+.prose img {
+  border-color: rgba(79, 195, 247, 0.3);
 }

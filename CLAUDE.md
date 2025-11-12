@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**junogarden-web** is a personal blog and portfolio website built with Next.js 15, featuring a content-driven architecture with MDX support for blog posts and project showcases. The site uses a green nature-inspired design theme with interactive particle backgrounds.
+**junogarden-web** is a personal blog and portfolio website built with Next.js 15, featuring a content-driven architecture with MDX support for blog posts and project showcases. The site uses a cosmic space-inspired design theme with interactive particle backgrounds and starfield effects.
 
 ## Commands
 
@@ -54,13 +54,17 @@ The project implements a file-based CMS using markdown files:
 
 ### Styling System
 - **Tailwind CSS v4**: Uses new inline `@theme` directive in `globals.css`
-- **CSS Variables**: Color scheme defined in `:root` with dark mode support
+- **CSS Variables**: Color scheme defined in `:root` with cosmic space theme
 - **Design Tokens**:
-  - `--primary`: #4a7c2c (main green)
-  - `--secondary`: #6b9b3c (lighter green)
-  - `--accent`: #8bc34a (highlight green)
+  - `--primary`: #4fc3f7 (bright cyan)
+  - `--secondary`: #b794f6 (purple)
+  - `--accent`: #ffd93d (gold/yellow)
+  - `--star-glow`: #00d4ff (star glow effect)
+  - `--nebula-purple`: #7c3aed (nebula purple)
+  - `--nebula-pink`: #f472b6 (nebula pink)
 - **Prose Styling**: Custom markdown styles in `globals.css` for consistent content rendering
-- **Animations**: Custom keyframe animations (float, glow, fadeInUp) defined in globals.css
+- **Animations**: Custom keyframe animations (float, glow, fadeInUp, twinkle, starPulse) defined in globals.css
+- **Starfield Effect**: CSS-based animated starfield with `body::before` pseudo-element
 
 ### Interactive Background
 The `InteractiveBackground` component creates a particle system:
@@ -168,6 +172,6 @@ When working with this codebase:
 
 - This is a **personal portfolio/blog**, not a commercial product
 - Content is in **Korean and English** - respect the language in existing content
-- The design theme is **nature/garden inspired** (green colors, organic animations)
+- The design theme is **cosmic/space inspired** (cyan, purple, gold colors, starfield animations)
 - Performance matters - this should be a **fast, lightweight static site**
 - When suggesting changes, **preserve the existing aesthetic and UX patterns**
