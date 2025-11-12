@@ -8,7 +8,7 @@ tags:
 ---
 # 서론
 최근 `이상한 변호사 우영우`라는 드라마에 빠져살고있다
-<img src="https://velog.velcdn.com/images/junho5336/post/a66030af-e4ee-4a74-8ea6-7b8925770110/image.png" width="30%">
+<img src="https://velog.velcdn.com/images/junho5336/post/a66030af-e4ee-4a74-8ea6-7b8925770110/image.png" width="30%" />
 작중 주인공의 이런 대사가있다.
 > 이 사건은 재미있습니다😂 제가 좋아하는😆고래🐳퀴즈❓같아요. 몸무게가🏋️ 22톤인 암컷 향고래가 500kg에 달하는 대왕오징어를🦑 먹고 🍽 6시간 뒤 1.3톤짜리 알을🥚낳았다면 이 암컷 향고래의 몸무게는🏋️얼마일까요? 정답은 '고래는🐳 알을🥚낳을 수 없다'입니다. 고래는🐳포유류라 알이🥚아닌새끼를👶 낳으니까요. 무게에만 초점을🤨맞추면 문제를 풀 수 없습니다.핵심을 봐야🧐돼요.
 
@@ -62,7 +62,7 @@ TDD(Test-Driven Development)는 테스트코드를 먼저 작성하는 개발 �
 
 ### 순서
 
-<center><img src="https://velog.velcdn.com/images/junho5336/post/bfcaa4a1-74b9-494a-84c1-afe262ec569b/image.png" width="60%"></center>
+<center><img src="https://velog.velcdn.com/images/junho5336/post/bfcaa4a1-74b9-494a-84c1-afe262ec569b/image.png" width="60%" /></center>
 
 1. 실패하는 작은 단위 테스트를 작성한다. (컴파일조차 되지 않을 수 있다)
 2. 빨리 테스트를 통과하기 위해 프로덕션 코드를 작성한다.

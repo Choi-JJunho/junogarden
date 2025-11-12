@@ -223,9 +223,9 @@ class PetPlantControllerTest {
 
 
 > `pathParameters`를 사용하기 위해
-> 
-> mockMvc.perform(`get`("/pet-plants/{id}", 1L) 에서
-> 
+>
+> `mockMvc.perform(get("/pet-plants/{id}", 1L)` 에서
+>
 > `RestDocumentationRequestBuilders`의 `get()` 메서드를 사용해야한다는 부분을 신경써야한다.
 > 
 > 자세한 내용은 [공식문서 참고](https://docs.spring.io/spring-restdocs/docs/current/api/org/springframework/restdocs/mockmvc/RestDocumentationRequestBuilders.html)

@@ -101,9 +101,9 @@ public @interface Custom {
 ## 테스트 반복하기
 `@RepeatedTest`
 * 반복 횟수외 테스트 이름 설정 가능
-  * {displayName} : displayName 표기
-  * {currentRepetition} : 현재 반복횟수 표기
-  * {totalRepetitions} : 총 반복횟수 표기
+  * `{displayName}` : displayName 표기
+  * `{currentRepetition}` : 현재 반복횟수 표기
+  * `{totalRepetitions}` : 총 반복횟수 표기
 * RepetitionInfo 타입의 인자를 받을 수 있다.
   * currentRepetition 혹은 totalRepetition값을 가져온다.
 ```java
@@ -116,10 +116,10 @@ void repeatTest(RepetitionInfo repetitionInfo) {
 
 `@ParameteizedTest`
 * 테스트에 여러 매개변수를 대입해가며 반복할 수 있다.
-  * {displayName}
-  * {index}
-  * {arguments}
-  * {0}, {1}, ...
+  * `{displayName}`
+  * `{index}`
+  * `{arguments}`
+  * `{0}`, `{1}`, ...
   
 * 인자값에는 다양한 소스가 들어갈 수 있다.
   * `@ValueSource`, `@NullSource`, `@EmptySource`, `MethodSource` 등등

@@ -175,14 +175,14 @@ account : tokenValue ... }
 ![](/images/802805e5-c6a5-4290-9dd5-be5e9603488c-image.png)
 
 그렇다고 방법이 없는건 아니다.
-refresh:account - key - Value 와 같은 방식으로 구분하는 방법을 생각해볼 수 있다. 실제로 나같은 고민을 누군가 했는지 아래 나올 `@RedisHash`를 이용해 이러한 문제를 보다 쉽게 해결할 수 있다.
+`refresh:account - key - Value` 와 같은 방식으로 구분하는 방법을 생각해볼 수 있다. 실제로 나같은 고민을 누군가 했는지 아래 나올 `@RedisHash`를 이용해 이러한 문제를 보다 쉽게 해결할 수 있다.
 
 JPARepository를 사용해봤다면 거의 동일한 방식으로 사용할 수 있다.
 
 ### Token
 
-`@RedisHash`의 인자가 위에서 언급한 refresh: 부분이 된다.
-아래처럼 지정하면 refreshToken:id - key - value로 값이 저장된다.
+`@RedisHash`의 인자가 위에서 언급한 `refresh:` 부분이 된다.
+아래처럼 지정하면 `refreshToken:id - key - value`로 값이 저장된다.
 id는 유저별로 가지고있는 고유 key값을 사용해야할 것이다.
 
 > account를 unique로 지정해놔서 사용해도 되겠지만 그래도 PK값을 사용하는게 더 확실해보여 PK값을 사용하려고한다.

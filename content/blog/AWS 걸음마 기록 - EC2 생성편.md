@@ -190,7 +190,7 @@ sudo mv apache-tomcat-8.5.56 /opt/tomcat
 ```shell
 sudo sh -c 'chmod +x /opt/tomcat/apache/bin/*.sh'
 ```
-<br>
+<br />
 
 설치가 끝났으니 이제 즐거운 배포시간이 다가왔다.
 Tomcat은 기본적으로 **.war** 확장자를 가지고 파일을 배포한다.

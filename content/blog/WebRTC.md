@@ -48,7 +48,7 @@ ICE는 STUN과 TURN 서버를 하나 혹은 둘다 사용해야한다.
 
 STUN 서버는 해당 Peer의 공인 IP 주소를 보내는 역할을 한다.
 두 엔드포인드간의 연결을 확인하고 NAT 바인딩을 유지하기 위한 연결 유지 프로토콜로 사용할 수도 있다. 
-<center><img src = "https://velog.velcdn.com/images/junho5336/post/abb274d4-be24-4ecd-b6b7-59a9cc842874/image.png" width="50%"></center>
+<center><img src = "https://velog.velcdn.com/images/junho5336/post/abb274d4-be24-4ecd-b6b7-59a9cc842874/image.png" width="50%" /></center>
 
 > 두 단말이 같은 NAT 환경에 있지 않을 경우 또는 NAT 보안정책이 엄격하다는 등의 이유에 따라 STUN이 완벽한 해결책이 되지는 않는다.
 
@@ -60,7 +60,7 @@ TURN 서버는 인터넷 망에 위치하고 각 Peer들이 사설망 안에서 
 
 Turn 서버는 가능하면 마지막 수단으로 사용되는것을 권고하고있다.
 
-<center><img src = "https://velog.velcdn.com/images/junho5336/post/e33eeffb-0b1d-414e-9ece-fcd11fcd34a7/image.png" width="50%"></center>
+<center><img src = "https://velog.velcdn.com/images/junho5336/post/e33eeffb-0b1d-414e-9ece-fcd11fcd34a7/image.png" width="50%" /></center>
 
 ### SDP(Session Description Protocol)
 해상도나 형식, 코덱, 암호화등의 멀티미디어 콘텐츠의 연결을 설명하기 위한 표준이다.

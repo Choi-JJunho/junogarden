@@ -83,7 +83,7 @@ export default {
     <span>Welcome~ {{name}}</span>
     <form>
       <textarea v-model.number="message" typeof="" placeholder="여러줄도 입력해보시지 ㅋㅋ"></textarea>
-      <p style="white-space: pre-line"></p>
+      <p style={{whiteSpace: 'pre-line'}}></p>
       <div>
         <select v-model="selected">
           <option disabled value="">Please select one</option>

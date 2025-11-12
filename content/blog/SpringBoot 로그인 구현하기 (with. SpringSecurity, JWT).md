@@ -525,7 +525,7 @@ public class SecurityConfig {
 }
 ```
 PasswordEncoder를 createDelegatingPasswordEncoder()로 설정하면
-{noop} asdf!@#asdfvz!@#... 처럼 password의 앞에 Encoding 방식이 붙은채로 저장되어 암호화 방식을 지정하여 저장할 수 있다.
+`{noop}` asdf!@#asdfvz!@#... 처럼 password의 앞에 Encoding 방식이 붙은채로 저장되어 암호화 방식을 지정하여 저장할 수 있다.
 
 추가로 확인할 내용이 있다.
 Jwt를 검증하기 위한 Filter로 `JwtAuthenticationFilter`를 만들었다. 그렇다면 이 필터는 어디에 있어야 제 역할을 할까?
