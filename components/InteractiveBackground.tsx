@@ -2,6 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
+// Constants for better maintainability
+const PARTICLE_COUNT = 50;
+const CONNECTION_DISTANCE = 150;
+const REPEL_DISTANCE = 100;
+const PARTICLE_VELOCITY = 0.5;
+const CONNECTION_ALPHA_MAX = 0.3;
+
 export default function InteractiveBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -10,7 +17,10 @@ export default function InteractiveBackground() {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      console.warn("Canvas 2D context not available");
+      return;
+    }
 
     // Set canvas size
     const resizeCanvas = () => {
@@ -29,17 +39,15 @@ export default function InteractiveBackground() {
       radius: number;
     }> = [];
 
-    const particleCount = 50;
     const mouse = { x: 0, y: 0 };
-    const connectionDistance = 150;
 
     // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * PARTICLE_VELOCITY,
+        vy: (Math.random() - 0.5) * PARTICLE_VELOCITY,
         radius: Math.random() * 2 + 1,
       });
     }
@@ -51,8 +59,21 @@ export default function InteractiveBackground() {
     };
     window.addEventListener("mousemove", handleMouseMove);
 
+    // Helper function to convert alpha to hex with proper bounds
+    const alphaToHex = (alpha: number): string => {
+      const clampedAlpha = Math.max(0, Math.min(255, Math.floor(alpha)));
+      return clampedAlpha.toString(16).padStart(2, "0");
+    };
+
     // Animation loop
+    let animationId: number;
     const animate = () => {
+      // Pause animation when tab is hidden (performance optimization)
+      if (document.hidden) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Get CSS variables
@@ -69,12 +90,12 @@ export default function InteractiveBackground() {
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
 
-        // Mouse interaction
+        // Mouse interaction (repel from cursor)
         const dx = mouse.x - particle.x;
         const dy = mouse.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < 100) {
+        if (distance < REPEL_DISTANCE) {
           particle.x -= dx * 0.01;
           particle.y -= dy * 0.01;
         }
@@ -91,22 +112,23 @@ export default function InteractiveBackground() {
           const dy = particle.y - otherParticle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < connectionDistance) {
+          if (distance < CONNECTION_DISTANCE) {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `${primaryColor || "#4fc3f7"}${Math.floor(
-              (1 - distance / connectionDistance) * 0.3 * 255
-            )
-              .toString(16)
-              .padStart(2, "0")}`;
+
+            // Calculate alpha value with proper clamping
+            const alphaValue = (1 - distance / CONNECTION_DISTANCE) * CONNECTION_ALPHA_MAX * 255;
+            const hexAlpha = alphaToHex(alphaValue);
+
+            ctx.strokeStyle = `${primaryColor || "#4fc3f7"}${hexAlpha}`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         });
       });
 
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
 
     animate();
@@ -114,6 +136,9 @@ export default function InteractiveBackground() {
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       window.removeEventListener("mousemove", handleMouseMove);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
     };
   }, []);
 

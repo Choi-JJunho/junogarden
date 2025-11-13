@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Content files (preserve original formatting)
+content/
+
+# Public assets
+public/
+
+# Config files
+*.config.js
+*.config.ts
+*.config.mjs
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+coverage/
+.env*
