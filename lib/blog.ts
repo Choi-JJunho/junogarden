@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import yaml from "js-yaml";
 import type { BlogPost } from "@/types";
+import { BlogFrontmatterSchema, validateFrontmatter } from "./schemas";
 
 const blogDirectory = path.join(process.cwd(), "content/blog");
 
@@ -33,19 +34,27 @@ export function getAllPosts(): BlogPost[] {
           }
         });
 
+        // Validate frontmatter with Zod
+        const validation = validateFrontmatter(BlogFrontmatterSchema, data, fileName);
+
+        if (!validation.success) {
+          // Log validation error and skip this file
+          return null;
+        }
+
         return {
           slug,
           fileName: fileName.replace(/\.md$/, ""),
-          title: data.title || fileName.replace(/\.md$/, ""),
-          date: data.date || "",
-          description: data.description,
+          title: validation.data.title,
+          date: validation.data.date,
+          description: validation.data.description,
           content,
-          tags: data.tags || [],
+          tags: validation.data.tags,
         };
-      } catch {
+      } catch (error) {
         // Skip files with parsing errors (e.g., invalid YAML in frontmatter)
         if (process.env.NODE_ENV === 'development') {
-          console.warn(`⚠️  Skipping file with parsing error: ${fileName}`);
+          console.warn(`⚠️  Skipping file with parsing error: ${fileName}`, error);
         }
         return null;
       }
@@ -75,8 +84,10 @@ export function getPostBySlug(slug: string): BlogPost | null {
       }
     });
 
-    // Validate required fields
-    if (!data.title || !content) {
+    // Validate frontmatter with Zod
+    const validation = validateFrontmatter(BlogFrontmatterSchema, data, `${decodedSlug}.md`);
+
+    if (!validation.success) {
       console.error(`Invalid blog post format: ${decodedSlug}`);
       return null;
     }
@@ -84,11 +95,11 @@ export function getPostBySlug(slug: string): BlogPost | null {
     return {
       slug: decodedSlug,
       fileName: decodedSlug,
-      title: data.title,
-      date: data.date || "",
-      description: data.description,
+      title: validation.data.title,
+      date: validation.data.date,
+      description: validation.data.description,
       content,
-      tags: data.tags || [],
+      tags: validation.data.tags,
     };
   } catch (error) {
     console.error(`Error reading blog post ${slug}:`, error);

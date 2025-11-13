@@ -5,6 +5,7 @@ import type { BlogPost } from "@/types";
 import { Card } from "@/components/common/Card";
 import { SearchInput } from "@/components/common/SearchInput";
 import { TagFilter } from "@/components/common/TagFilter";
+import { useDebounce } from "@/lib/hooks/useDebounce";
 
 interface BlogClientProps {
   allPosts: BlogPost[];
@@ -15,6 +16,9 @@ export default function BlogClient({ allPosts, allTags }: BlogClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
+  // Debounce search query to avoid excessive re-renders (300ms delay)
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
   const filteredPosts = useMemo(() => {
     let posts = allPosts;
 
@@ -23,9 +27,9 @@ export default function BlogClient({ allPosts, allTags }: BlogClientProps) {
       posts = posts.filter((post) => post.tags?.includes(selectedTag));
     }
 
-    // 검색어 필터링
-    if (searchQuery) {
-      const lowerQuery = searchQuery.toLowerCase();
+    // 검색어 필터링 (use debounced value to improve performance)
+    if (debouncedSearchQuery) {
+      const lowerQuery = debouncedSearchQuery.toLowerCase();
       posts = posts.filter((post) => {
         return (
           post.title.toLowerCase().includes(lowerQuery) ||
@@ -36,7 +40,7 @@ export default function BlogClient({ allPosts, allTags }: BlogClientProps) {
     }
 
     return posts;
-  }, [allPosts, searchQuery, selectedTag]);
+  }, [allPosts, debouncedSearchQuery, selectedTag]);
 
   return (
     <>
